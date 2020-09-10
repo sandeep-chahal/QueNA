@@ -6,9 +6,11 @@ import cookieParser from "cookie-parser";
 import passportConfig from "./passportConfig";
 import passport from "passport";
 import AuthRoute from "./routes/auth";
+import morgan from "morgan";
+import helmet from "helmet";
 
 const app = express();
-// const isProd = process.env.NODE_ENV === "production";
+const isProd = process.env.NODE_ENV === "production";
 
 const main = async () => {
 	// connect to db
@@ -17,7 +19,10 @@ const main = async () => {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 	});
-
+	// middlewares
+	if (!isProd) app.use(morgan("dev"));
+	app.use(express.json());
+	app.use(helmet());
 	app.use(cookieParser());
 
 	// passport middleware
