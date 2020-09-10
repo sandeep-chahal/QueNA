@@ -31,6 +31,46 @@ route.get(
 		res.json({ error: false });
 	}
 );
+route.get(
+	"/auth/github",
+	passport.authenticate("github", {
+		session: false,
+		scope: ["profile", "email"],
+	})
+);
+
+route.get(
+	"/auth/github/callback",
+	passport.authenticate("github", {
+		failureRedirect: "/login",
+		session: false,
+	}),
+	(req, res) => {
+		console.log(req.user);
+		res.cookie("jwt", generateJWT(req.user.email));
+		res.json({ error: false });
+	}
+);
+route.get(
+	"/auth/facebook",
+	passport.authenticate("facebook", {
+		session: false,
+		scope: ["profile", "email"],
+	})
+);
+
+route.get(
+	"/auth/facebook/callback",
+	passport.authenticate("facebook", {
+		failureRedirect: "/login",
+		session: false,
+	}),
+	(req, res) => {
+		console.log(req.user);
+		res.cookie("jwt", generateJWT(req.user.email));
+		res.json({ error: false });
+	}
+);
 
 route.get("/auth/status", authenticate, (req, res) => {
 	res.json({
