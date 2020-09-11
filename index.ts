@@ -3,11 +3,13 @@ dotenv.config();
 import express from "express";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
-import passportConfig from "./passportConfig";
+import passportConfig from "./config/passport";
 import passport from "passport";
 import AuthRoute from "./routes/auth";
 import morgan from "morgan";
 import helmet from "helmet";
+const session = require("express-session");
+const MongoStore = require("connect-mongo")(session);
 
 const app = express();
 const isProd = process.env.NODE_ENV === "production";
@@ -19,7 +21,18 @@ const main = async () => {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 	});
-	// middlewares
+	passportConfig(passport);
+
+	// sessions
+	app.use(
+		session({
+			secret: process.env.SESSION_SECRET,
+			resave: false,
+			saveUninitialized: false,
+			store: new MongoStore({ mongooseConnection: mongoose.connection }),
+		})
+	);
+	// other middlewares
 	if (!isProd) app.use(morgan("dev"));
 	app.use(express.json());
 	app.use(helmet());
@@ -27,7 +40,7 @@ const main = async () => {
 
 	// passport middleware
 	app.use(passport.initialize());
-	passportConfig(passport);
+	app.use(passport.session());
 
 	// routes
 	app.use(AuthRoute);

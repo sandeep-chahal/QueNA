@@ -1,13 +1,12 @@
-import jwt from "jsonwebtoken";
-import express, { Handler } from "express";
+import express from "express";
 
 export default (
 	req: express.Request,
 	res: express.Response,
 	next: express.NextFunction
 ) => {
-	const token = req.cookies.jwt;
-	const email = jwt.verify(token, process.env.JWT_SECRET || "");
-	req.user = email;
-	next();
+	console.log("authenticator", req.user);
+
+	if (req.isAuthenticated()) next();
+	else res.status(401).json({ error: true, status: "unauthorized" });
 };
