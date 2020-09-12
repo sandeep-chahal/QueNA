@@ -1,12 +1,5 @@
-import express from "express";
-
-export default (
-	req: express.Request,
-	res: express.Response,
-	next: express.NextFunction
-) => {
+module.exports = (req, res, next) => {
 	console.log("authenticator", req.user);
-
 	if (req.isAuthenticated()) next();
 	else res.status(401).json({ error: true, status: "unauthorized" });
 };

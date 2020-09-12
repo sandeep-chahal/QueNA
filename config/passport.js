@@ -1,15 +1,8 @@
-import passport from "passport";
-import strategies from "../config/strategies";
-import User from "../models/user";
+const passport = require("passport");
+const strategies = require("./strategies");
+const User = require("../models/user");
 
-type PROFILE = {
-	emails: [{ value: String }];
-	photos: [{ value: String }];
-	displayName: String;
-	provider: String;
-};
-
-export default (passport: passport.PassportStatic) => {
+module.exports = (passport) => {
 	strategies.forEach((provider) => {
 		passport.use(
 			new provider.strategy(
@@ -18,12 +11,7 @@ export default (passport: passport.PassportStatic) => {
 					clientSecret: provider.CLIENT_SECRET,
 					callbackURL: `/auth/${provider.name}/callback`,
 				},
-				async (
-					accessToken: String,
-					refreshToken: String,
-					profile: PROFILE,
-					cb
-				) => {
+				async (accessToken, refreshToken, profile, cb) => {
 					const email = profile.emails[0].value.toLowerCase();
 					const name = profile.displayName;
 					const photo = profile.photos[0].value || "";

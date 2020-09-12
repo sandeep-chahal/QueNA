@@ -1,8 +1,8 @@
-import GoogleStrategy from "passport-google-oauth20";
-import GithubStrategy from "passport-github";
-import FacebookStrategy from "passport-facebook";
+const GoogleStrategy = require("passport-google-oauth20");
+const GithubStrategy = require("passport-github");
+const FacebookStrategy = require("passport-facebook");
 
-export default [
+module.exports = [
 	{
 		name: "google",
 		strategy: GoogleStrategy.Strategy,

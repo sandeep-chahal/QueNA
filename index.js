@@ -1,13 +1,13 @@
-import dotenv from "dotenv";
+const dotenv = require("dotenv");
 dotenv.config();
-import express from "express";
-import mongoose from "mongoose";
-import cookieParser from "cookie-parser";
-import passportConfig from "./config/passport";
-import passport from "passport";
-import AuthRoute from "./routes/auth";
-import morgan from "morgan";
-import helmet from "helmet";
+const express = require("express");
+const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
+const passportConfig = require("./config/passport");
+const passport = require("passport");
+const AuthRoute = require("./routes/auth");
+const morgan = require("morgan");
+const helmet = require("helmet");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 

@@ -1,7 +1,7 @@
-import { Router } from "express";
-import passport from "passport";
-import authenticate from "../middlewares/auth";
-import strategies from "../config/strategies";
+const { Router } = require("express");
+const passport = require("passport");
+const authenticate = require("../middlewares/auth");
+const strategies = require("../config/strategies");
 
 const route = Router();
 
@@ -35,4 +35,4 @@ route.get("/auth/logout", (req, res) => {
 	res.json({ error: false });
 });
 
-export default route;
+module.exports = route;
