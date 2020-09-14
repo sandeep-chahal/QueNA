@@ -22,3 +22,10 @@ module.exports.addAnswer = async (req, res, next) => {
 		});
 	return res.json({ error: false });
 };
+module.exports.addLike = async (req, res, next) => {
+	const id = req.params.id;
+
+	await Answer.updateOne({ _id: id }, { $inc: { likes: 1 } });
+
+	return res.json({ error: false });
+};
