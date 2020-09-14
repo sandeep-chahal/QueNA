@@ -65,3 +65,8 @@ module.exports.addView = async (req, res, next) => {
 	console.log(response);
 	return res.json({ error: false });
 };
+module.exports.addAnswer = async (req, res, next) => {
+	const answer = req.body.answer;
+
+	return res.json({ error: false });
+};

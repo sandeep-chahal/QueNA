@@ -7,6 +7,7 @@ const passportConfig = require("./config/passport");
 const passport = require("passport");
 const AuthRoute = require("./routes/auth");
 const QuestionRoute = require("./routes/question");
+const AnswerRoute = require("./routes/answer");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const session = require("express-session");
@@ -46,6 +47,7 @@ const main = async () => {
 	// routes
 	app.use(AuthRoute);
 	app.use(QuestionRoute);
+	app.use(AnswerRoute);
 
 	// setup server
 	const PORT = process.env.PORT || 3005;
