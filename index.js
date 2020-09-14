@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const passportConfig = require("./config/passport");
 const passport = require("passport");
 const AuthRoute = require("./routes/auth");
+const QuestionRoute = require("./routes/question");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const session = require("express-session");
@@ -44,6 +45,7 @@ const main = async () => {
 
 	// routes
 	app.use(AuthRoute);
+	app.use(QuestionRoute);
 
 	// setup server
 	const PORT = process.env.PORT || 3005;
