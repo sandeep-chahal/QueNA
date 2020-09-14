@@ -5,5 +5,6 @@ const authenticate = require("../middlewares/auth");
 router.post("/question/add", authenticate, QuestionController.addQuestion);
 router.get("/question/get/:id", QuestionController.getQuestion);
 router.get("/question/search/:title", QuestionController.searchQuestions);
+router.get("/question/add-view/:id", QuestionController.addView);
 
 module.exports = router;

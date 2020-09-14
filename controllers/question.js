@@ -55,3 +55,13 @@ module.exports.searchQuestions = async (req, res, next) => {
 		questions: questions,
 	});
 };
+
+module.exports.addView = async (req, res, next) => {
+	const id = req.params.id;
+	const response = await Question.updateOne(
+		{ _id: id },
+		{ $inc: { views: 1 } }
+	);
+	console.log(response);
+	return res.json({ error: false });
+};
