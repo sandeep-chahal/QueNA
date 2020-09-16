@@ -39,12 +39,12 @@ module.exports.getQuestion = async (req, res, next) => {
 };
 module.exports.searchQuestions = async (req, res, next) => {
 	const title = req.params.title;
-	console.log(title);
+	const limit = req.query.limit || 10;
 
 	const questions = await Question.find({
 		title: { $regex: title },
 	})
-		.limit(10)
+		.limit(parseInt(limit))
 		.populate("askedBy", "photo name");
 
 	if (!questions || !questions.length)
